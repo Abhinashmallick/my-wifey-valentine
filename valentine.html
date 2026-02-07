@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Wifey 💖</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffb6c1, #ffd6e8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Comic Sans MS", sans-serif;
+  overflow: hidden;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  padding: 50px 40px;
+  width: 540px;
+  border-radius: 26px;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 5;
+}
+
+/* Headings */
+.wifey {
+  font-size: 26px;
+  color: #ff4d6d;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 28px;
+  color: #ff4d6d;
+  margin-bottom: 30px;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+button {
+  padding: 14px 34px;
+  border-radius: 999px;
+  border: none;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover { transform: scale(1.05); }
+
+.yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+.no {
+  background: #e0e0e0;
+  color: #333;
+  position: relative;
+}
+
+/* YES SCREEN */
+.yes-screen {
+  display: none;
+}
+
+.yay {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.sub {
+  margin: 10px 0 20px;
+  font-size: 18px;
+}
+
+.panda img {
+  width: 260px;
+  border-radius: 18px;
+}
+
+.love-text {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+/* Hearts */
+.heart {
+  position: fixed;
+  top: -20px;
+  font-size: 16px;
+  animation: fall linear forwards;
+  z-index: 1;
+}
+
+@keyframes fall {
+  from { transform: translateY(-10vh); opacity: 1; }
+  to { transform: translateY(110vh); opacity: 0; }
+}
+
+/* Fireworks */
+.firework {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: explode 1s ease-out forwards;
+  z-index: 2;
+}
+
+@keyframes explode {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(25); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Romantic Song -->
+<audio id="loveSong">
+  <source src="./20260207_214119860.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+
+  <!-- QUESTION -->
+  <div id="question">
+    <div class="wifey">Wifey 💕</div>
+    <h1>Will you be my Valentine? 💘</h1>
+
+    <div class="buttons">
+      <button class="yes" id="yesBtn">Yes 💖</button>
+      <button class="no" id="noBtn">No 😅</button>
+    </div>
+  </div>
+
+  <!-- YES CONTENT -->
+  <div class="yes-screen" id="yesScreen">
+    <div class="yay">💖 YAY!!! 💖</div>
+    <div class="sub">Forever mine 🥹</div>
+
+    <div class="panda">
+      <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Kissing Panda">
+    </div>
+
+    <div class="love-text">I love you endlessly ❤️</div>
+  </div>
+
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const question = document.getElementById("question");
+const yesScreen = document.getElementById("yesScreen");
+const song = document.getElementById("loveSong");
+
+// NO button runs away
+noBtn.addEventListener("mouseenter", () => {
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 120 - 60;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+// YES click = LOVE MODE
+yesBtn.addEventListener("click", () => {
+  question.style.display = "none";
+  yesScreen.style.display = "block";
+  song.play();
+  startHearts();
+  startFireworks();
+});
+
+// 10,000 hearts
+function startHearts() {
+  let count = 0;
+  const interval = setInterval(() => {
+    for (let i = 0; i < 10; i++) {
+      createHeart();
+      count++;
+      if (count >= 10000) {
+        clearInterval(interval);
+        break;
+      }
+    }
+  }, 100);
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+
+// Fireworks
+function startFireworks() {
+  setInterval(() => {
+    const fw = document.createElement("div");
+    fw.className = "firework";
+    fw.style.left = Math.random() * 100 + "vw";
+    fw.style.top = Math.random() * 100 + "vh";
+    fw.style.background =
+      ["#ff4d6d", "#ffcc00", "#6a4cff", "#00c9a7"]
+      [Math.floor(Math.random() * 4)];
+    document.body.appendChild(fw);
+    setTimeout(() => fw.remove(), 1000);
+  }, 400);
+}
+</script>
+
+</body>
+</html>
